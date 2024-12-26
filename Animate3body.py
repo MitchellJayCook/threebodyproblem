@@ -7,16 +7,16 @@ import Three_body_problem as Threebod
 
 plt.rcParams["figure.figsize"] = 4,3
 
-body_0, velocity_0 = [[[1,0]],[[0,0.8]]]
-body_1, velocity_1 = [[[-3,0]],[[0,-0.551]]]
-body_2, velocity_2 = [[[0,-2]],[[0.1,-0.285]]]
+mass_0, body_0, velocity_0 = [10, [[0,0]],[[0,0]]]
+mass_1, body_1, velocity_1 = [2, [[-15,0]],[[0.5,-0.5]]]
+mass_2, body_2, velocity_2 = [2, [[0,-15]],[[0.5,0]]]
 
 ntimes = 100000
-size = 10
+size = 40
+density = 1
 
 body_0_x, body_0_y, body_1_x, body_1_y, body_2_x, body_2_y = \
-    Threebod.loop_it(body_0,velocity_0,body_1,velocity_1,body_2,velocity_2,\
-                     ntimes)
+    Threebod.loop_it(body_0,velocity_0,mass_0,body_1,velocity_1,mass_1,body_2,velocity_2,mass_2,ntimes)
 def firstbody(phi):
     xpos = body_0_x[phi]
     ypos = body_0_y[phi]
@@ -39,9 +39,9 @@ ax.axis([-size,size,-size,size])
 # set equal aspect such that the circle is not shown as ellipse
 ax.set_aspect("equal")
 # create a point in the axes
-point1, = ax.plot(0,1, marker="o")
-point2, = ax.plot(0,1, marker="o")
-point3, = ax.plot(0,1, marker="o")
+point1, = ax.plot(0,1, marker="o", markersize = (size*density*mass_0)/25)
+point2, = ax.plot(0,1, marker="o", markersize = (size*density*mass_1)/25)
+point3, = ax.plot(0,1, marker="o", markersize = (size*density*mass_2)/25)
 
 # Updating function, to be repeatedly called by the animation
 def update(phi):
